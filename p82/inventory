@@ -1,2 +1,2 @@
 [node1]
-192.168.25.105 ansible_user=alex ansible_ssh_pass=alex
+192.168.25.165 ansible_user=alex ansible_ssh_pass=alex
