@@ -1,0 +1,3 @@
+ansible_user: alex
+ansible_ssh_pass: alex
+msg_name: Anna

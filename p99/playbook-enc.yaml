@@ -1,0 +1,11 @@
+- name: Echoing vars
+  hosts: all
+  tasks:
+    - name: Echo var
+      ansible.builtin.command: >
+         /bin/echo "The username is {{username}}
+         and the password {{password}}"
+      register: response
+    - name: Print result
+      ansible.builtin.debug:
+        var: response

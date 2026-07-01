@@ -1,0 +1,2 @@
+[node1]
+192.168.25.147 ansible_user=alex ansible_ssh_pass=alex

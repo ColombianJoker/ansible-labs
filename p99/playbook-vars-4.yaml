@@ -1,0 +1,17 @@
+- name: Echoing Vars
+  hosts: all
+  vars_prompt:
+    - name: password
+      prompt: Enter the password
+      private: true
+      encrypt: sha512_crypt
+      confirm: true
+      salt_size: 7
+  tasks:
+    - name: Echo var
+      ansible.builtin.command: /bin/echo "Password '{{password}}'"
+      register: response
+    - name: Print result
+      ansible.builtin.debug:
+        var: response
+      

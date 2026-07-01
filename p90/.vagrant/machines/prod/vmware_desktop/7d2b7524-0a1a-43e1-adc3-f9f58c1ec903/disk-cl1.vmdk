@@ -1,0 +1,31 @@
+# Disk DescriptorFile
+version=1
+encoding="UTF-8"
+CID=d3c4c386
+parentCID=6cd3b3c2
+createType="twoGbMaxExtentSparse"
+parentFileNameHint="/Users/e/.vagrant.d/boxes/bento-VAGRANTSLASH-almalinux-9/202511.24.0/arm64/vmware_desktop/disk-000013.vmdk"
+# Extent description
+RW 8323072 SPARSE "disk-cl1-s001.vmdk"
+RW 8323072 SPARSE "disk-cl1-s002.vmdk"
+RW 8323072 SPARSE "disk-cl1-s003.vmdk"
+RW 8323072 SPARSE "disk-cl1-s004.vmdk"
+RW 8323072 SPARSE "disk-cl1-s005.vmdk"
+RW 8323072 SPARSE "disk-cl1-s006.vmdk"
+RW 8323072 SPARSE "disk-cl1-s007.vmdk"
+RW 8323072 SPARSE "disk-cl1-s008.vmdk"
+RW 8323072 SPARSE "disk-cl1-s009.vmdk"
+RW 8323072 SPARSE "disk-cl1-s010.vmdk"
+RW 8323072 SPARSE "disk-cl1-s011.vmdk"
+RW 8323072 SPARSE "disk-cl1-s012.vmdk"
+RW 8323072 SPARSE "disk-cl1-s013.vmdk"
+RW 8323072 SPARSE "disk-cl1-s014.vmdk"
+RW 8323072 SPARSE "disk-cl1-s015.vmdk"
+RW 8323072 SPARSE "disk-cl1-s016.vmdk"
+RW 1048576 SPARSE "disk-cl1-s017.vmdk"
+
+# The Disk Data Base 
+#DDB
+
+ddb.fcd.uuid = "00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00"
+ddb.longContentID = "49a0f7e06423e5db1ca8a7ead3c4c386"
