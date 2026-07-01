@@ -1,0 +1,12 @@
+- name: Add several users
+  ansible.builtin.user:
+    name: "{{ item.name }}"
+    state: present
+    groups: "{{ item.groups }}"
+  loop: "{{ userinfo }}"
+  vars:
+    userinfo:
+      - name: alex
+        groups: [ "root", "wheel" ]
+      - name: bob
+        groups: [ "wheel" ]

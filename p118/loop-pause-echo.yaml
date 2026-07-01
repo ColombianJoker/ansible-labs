@@ -1,0 +1,14 @@
+- name: Echoing in loops
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Echo var
+      ansible.builtin.command: /bin/echo "Hello World {{item}}"
+      loop: [ "Ada", "Alexa" ]
+      loop_control:
+        pause: 5
+      register: resp
+    - name: Print result
+      debug:
+        var: resp
+        

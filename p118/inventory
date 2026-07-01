@@ -1,0 +1,9 @@
+[node1]
+192.168.25.167 ansible_user=alex ansible_ssh_pass=alex
+
+[prod]
+192.168.25.97 ansible_user=vagrant ansible_ssh_pass=vagrant
+
+[staging]
+192.168.25.87 ansible_user=vagrant ansible_ssh_pass=vagrant
+

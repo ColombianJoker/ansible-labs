@@ -1,0 +1,8 @@
+- name: Add several items
+  - name: copy files
+      ansible.builtin.copy:
+        src: "{{item.src}}"
+        dest: "{{item.dest}}"
+      loop:
+        - { src: "nginx.conf", dest: "/etc/nginx/conf.d/localhost.conf" }
+        - { src: "hosts.conf", dest: "/etc/hosts" }
