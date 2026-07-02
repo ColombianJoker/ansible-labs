@@ -1,0 +1,16 @@
+- name: Update page
+  hosts: all
+  become: true
+  tasks:
+    - name: copy index.html
+      ansible.builtin.copy:
+        src: index.html
+        dest: /usr/share/nginx/html/index.html
+        mode: 0644
+      notify:
+        - Restart nginx
+  handlers:
+    - name: Restart nginx
+      ansible.builtin.service:
+        name: nginx
+        state: restarted

@@ -1,0 +1,20 @@
+all:
+  children:
+    node1:
+      hosts:
+        192.168.25.103:
+          ansible_user: alex
+          ansible_ssh_pass: alex
+          ansible_become_pass: alex
+
+    prod:
+      hosts:
+        192.168.25.123:
+          ansible_user: vagrant
+          ansible_ssh_pass: vagrant
+
+    staging:
+      hosts:
+        192.168.25.181:
+          ansible_user: vagrant
+          ansible_ssh_pass: vagrant
