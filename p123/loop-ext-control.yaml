@@ -1,0 +1,13 @@
+- name: Loop extended control
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Show all data
+      ansible.builtin.debug:
+        msg: >
+          Indexes:
+          - Index0 {{ ansible_loop.index0 }}
+          - Index1 {{ ansible_loop.index }}
+      loop: "{{ query('inventory_hostnames', 'all') }}"
+      loop_control:
+        extended: true

@@ -1,0 +1,15 @@
+- name: Echoing Vars
+  hosts: all
+  gather_facts: false
+  vars:
+    una_var iable: 'Un valor'
+  vars_files:
+    - external-vars.yaml
+    
+  tasks:
+    - name: Echo var
+      ansible.builtin.debug:
+        msg: >
+          una_variable: '{{una_variable}}', 
+          segunda_variable: '{{segunda_variable}}',
+          tercera_variable: '{{tercera_variable}}', 

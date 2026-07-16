@@ -1,0 +1,14 @@
+- name: Block example
+  hosts: all
+  tasks:
+    - name: Attempt to install a package
+      block:
+        - name: install an invalid package
+          ansible.builtin.dnf:
+            name: kjdkdjkjfd
+      rescue:
+        - ansible.builtin.debug:
+            msg: "Oh! there is an error"
+      always:
+        - ansible.builtin.debug:
+            msg: "This always executes"
