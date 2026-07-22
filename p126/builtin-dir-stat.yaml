@@ -1,0 +1,19 @@
+- name: Directory exists
+  hosts: all
+  gather_facts: false
+  vars:
+    systemddir: "/etc/systemd"
+
+  tasks:
+    - name: Do exists SystemD directory?
+      ansible.builtin.stat:
+        path: "{{systemddir}}"
+      register: sysd
+    - name: Show if SystemD directory exits
+      ansible.builtin.debug:
+        msg: "Directory {{systemddir}} exists!"
+      when: sysd.stat.isdir is defined and sysd.stat.isdir
+    - name: Shof if SystemD directory does not exists
+      ansible.builtin.debug:
+        msg: "Directory {{systemddir}} DOES NOT exists!"
+      when: sysd.stat.isdir is not defined or not sysd.stat.isdir

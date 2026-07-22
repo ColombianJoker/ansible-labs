@@ -1,0 +1,19 @@
+all:
+  children:
+    vagrant_vms:
+      hosts:
+        staging:
+          ansible_host: 127.0.0.1
+          ansible_port: 2200
+          ansible_user: vagrant
+          ansible_ssh_private_key_file: /Users/e/Dropbox/Documents/Code/Ansible/RHCE/ansible-labs/p147/.vagrant/machines/staging/vmware_desktop/private_key
+        prod:
+          ansible_host: 127.0.0.1
+          ansible_port: 2201
+          ansible_user: vagrant
+          ansible_ssh_private_key_file: /Users/e/Dropbox/Documents/Code/Ansible/RHCE/ansible-labs/p147/.vagrant/machines/prod/vmware_desktop/private_key
+        node1:
+          ansible_host: 127.0.0.1
+          ansible_port: 2202
+          ansible_user: vagrant
+          ansible_ssh_private_key_file: /Users/e/Dropbox/Documents/Code/Ansible/RHCE/ansible-labs/p147/.vagrant/machines/node1/vmware_desktop/private_key

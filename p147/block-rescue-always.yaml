@@ -1,5 +1,6 @@
 - name: Block example
   hosts: all
+  become: true
   tasks:
     - name: Attempt to install a package
       block:
