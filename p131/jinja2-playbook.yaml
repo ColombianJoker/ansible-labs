@@ -1,0 +1,20 @@
+---
+- name: configuration template
+  hosts: all
+  vars:
+    username: Alex
+    password: Alex
+
+  tasks:
+    - name: Copy conf files
+      ansible.builtin.template:
+        src: "conf.properties.j2"
+        dest: "/tmp/conf.properties"
+    - name: Display conf.properties contents
+      ansible.builtin.command:
+        cmd: cat conf.properties
+        chdir: /tmp
+      register: command_output
+    - name: Print to console
+      ansible.builtin.debug:
+        msg: "{{command_output.stdout.split('\n')}}"

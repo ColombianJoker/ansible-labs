@@ -1,0 +1,12 @@
+# File created at {{ansible_date_time.iso8601}}
+
+hostname={{ ansible_hostname }}
+
+{% if ansible_memtotal_mb > 500 %}
+connection_pool=30
+{% else %}
+connection_pool=10
+{% endif %}
+
+db_username={{ username }}
+db_password={{ password }}

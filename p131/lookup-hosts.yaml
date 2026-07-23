@@ -1,0 +1,8 @@
+- name: Read hosts
+  hosts: all
+  gather_facts: false
+  vars:
+    hosts_value: "{{ lookup('file', '/etc/hosts') }}"
+  tasks:
+    - debug:
+        msg: "hosts value is {{ hosts_value }}"

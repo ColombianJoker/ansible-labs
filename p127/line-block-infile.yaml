@@ -1,0 +1,15 @@
+- name: Line/Block Infile Module
+  hosts: all
+  gather_facts: false
+  become: true
+  tasks:
+    - name: Insert line
+      ansible.builtin.lineinfile:
+        line: Hello Alexandra
+        path: /home/alex/welcome.txt
+        create: true
+    - name: Remove line
+      ansible.builtin.lineinfile:
+        line: Hello World
+        path: /home/alex/welcome.txt
+        state: absent
