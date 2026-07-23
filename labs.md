@@ -722,6 +722,26 @@ show_file: /etc/hosts
     msg: "{{command_output.stdout}}"
 ```
 
+## Página 158
+`use-at-from-collection.yaml`
+```
+---
+- name: set "at" command
+  hosts: prod
+  become: yes
+  tasks:
+    - name: Install "at" package
+      ansible.builtin.dnf:
+        name: at >= 2.4
+        state: present
+    - name: Schedule a command to execute in 1 minute
+      ansible.posix.at:
+        command: ls -d / > /tmop/ls.txt
+        count: 2
+        units: minutes
+        unique: yes
+```
+---
 
 ## Página 90
 ### Facts
@@ -4149,3 +4169,57 @@ staging                    : ok=4    changed=1    unreachable=0    failed=0    s
 
 [0 e@Gunther:~/Documents/Code/Ansible/RHCE/ansible-labs/p154]
 ```
+
+## Página 158
+### Install a colección desde Galaxy
+
+`ansible-galaxy collection install`
+```
+[0 e@Gunther:~/Documents/Code/Ansible/RHCE/ansible-labs/p158] ansible-galaxy collection install ansible.posix
+Starting galaxy collection install process
+Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+[0 e@Gunther:~/Documents/Code/Ansible/RHCE/ansible-labs/p158]
+```
+
+### Usar algo de una colección
+`ansible-playbook -i inventory.yaml use-at-from-collection.yaml`
+```
+[0 e@Gunther:~/Documents/Code/Ansible/RHCE/ansible-labs/p158] ansible-playbook -i inventory.yaml use-at-from-collection.yaml
+
+PLAY [set "at" command] *********************************************************************************************
+
+TASK [Gathering Facts] **********************************************************************************************
+[WARNING]: Host 'prod' is using the discovered Python interpreter at '/usr/bin/python3.9', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.20/reference_appendices/interpreter_discovery.html for more information.
+ok: [prod]
+
+TASK [Install "at" package] *****************************************************************************************
+ok: [prod]
+
+TASK [Schedule a command to execute in 1 minute] ********************************************************************
+changed: [prod]
+
+PLAY RECAP **********************************************************************************************************
+prod                       : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+[0 e@Gunther:~/Documents/Code/Ansible/RHCE/ansible-labs/p158]
+```
+
+### Check results
+
+```
+[0 e@Gunther:~/Documents/Code/Ansible/RHCE/ansible-labs/p158] vagrant ssh prod
+
+This system is built by the Bento project by Chef Software
+More information can be found at https://github.com/chef/bento
+
+Use of this system is acceptance of the OS vendor EULA and License Agreements.
+Last login: Thu Jul 23 17:00:17 2026 from 192.168.209.1
+[vagrant@localhost ~]$ atq
+[vagrant@localhost ~]$ ls -l /tmp/ls.txt
+ls: cannot access '/tmp/ls.txt': No such file or directory
+[vagrant@localhost ~]$ sudo -i
+[root@localhost ~]# atq
+1	Thu Jul 23 17:02:00 2026 a root
+[root@localhost ~]#
+```
+ 

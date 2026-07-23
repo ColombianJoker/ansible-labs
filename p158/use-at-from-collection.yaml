@@ -1,0 +1,15 @@
+---
+- name: set "at" command
+  hosts: prod
+  become: yes
+  tasks:
+    - name: Install "at" package
+      ansible.builtin.dnf:
+        name: at >= 2.4
+        state: present
+    - name: Schedule a command to execute in 1 minute
+      ansible.posix.at:
+        command: ls -d / > /tmop/ls.txt
+        count: 2
+        units: minutes
+        unique: yes
