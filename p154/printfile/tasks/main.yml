@@ -4,6 +4,7 @@
 - name: Display file contents
   ansible.builtin.command: "cat {{show_file}}"
   register: command_output
+  notify: Print to console
 - name: Print to console
   ansible.builtin.debug:
     msg: "{{command_output.stdout}}"

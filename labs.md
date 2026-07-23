@@ -2,7 +2,7 @@ Ansible labs from the book Red Hat Certified Engineer (RHCE) Ansible Automation 
 
 ![Red Hat Certified Engineer (RHCE) Ansible Automation Study Guide](readme-1.jpg)
 
-I used two versions, that's why the sequence of page numbers is not continuous.
+I used two versions, that's why the sequence of page numbers are not continuous.
 
 # Files
 
@@ -697,6 +697,31 @@ show_file: /etc/hosts
       ansible.builtin.include_role:
         name: printfile
 ```
+
+`printfile/tasks/main.yaml` (with handler added)
+```
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for printfile
+- name: Display file contents
+  ansible.builtin.command: "cat {{show_file}}"
+  register: command_output
+  notify: Print to console
+- name: Print to console
+  ansible.builtin.debug:
+    msg: "{{command_output.stdout}}"
+```
+
+`printfile/handlers/main.yaml` (handler added)
+```
+#SPDX-License-Identifier: MIT-0
+---
+# handlers file for printfile
+- name: Print to console
+  ansible.builtin.debug:
+    msg: "{{command_output.stdout}}"
+```
+
 
 ## Página 90
 ### Facts
@@ -4067,6 +4092,41 @@ TASK [Gathering Facts] *********************************************************
 ok: [prod]
 [WARNING]: Host 'staging' is using the discovered Python interpreter at '/usr/bin/python3.9', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.20/reference_appendices/interpreter_discovery.html for more information.
 ok: [staging]
+
+TASK [Print Hosts] **************************************************************************************************
+included: printfile for staging, prod
+
+TASK [printfile : Display file contents] ****************************************************************************
+changed: [prod]
+changed: [staging]
+
+TASK [printfile : Print to console] *********************************************************************************
+ok: [staging] => {
+    "msg": "127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4\n::1         localhost localhost.localdomain localhost6 localhost6.localdomain6"
+}
+ok: [prod] => {
+    "msg": "127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4\n::1         localhost localhost.localdomain localhost6 localhost6.localdomain6"
+}
+
+PLAY RECAP **********************************************************************************************************
+prod                       : ok=4    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+staging                    : ok=4    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+[0 e@Gunther:~/Documents/Code/Ansible/RHCE/ansible-labs/p154]
+```
+
+### Run again, after a handler is defined
+
+```
+[0 e@Gunther:~/Documents/Code/Ansible/RHCE/ansible-labs/p154] ansible-playbook -i inventory.yaml play-use-role.yaml
+
+PLAY [use role] *****************************************************************************************************
+
+TASK [Gathering Facts] **********************************************************************************************
+[WARNING]: Host 'staging' is using the discovered Python interpreter at '/usr/bin/python3.9', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.20/reference_appendices/interpreter_discovery.html for more information.
+ok: [staging]
+[WARNING]: Host 'prod' is using the discovered Python interpreter at '/usr/bin/python3.9', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.20/reference_appendices/interpreter_discovery.html for more information.
+ok: [prod]
 
 TASK [Print Hosts] **************************************************************************************************
 included: printfile for staging, prod
