@@ -1,0 +1,10 @@
+---
+- name: Install OpenJK 1.8.0
+  hosts: all
+  become: true
+  roles:
+    - role: geerlingguy.java
+      when: "ansible_os_family == 'RedHat'"
+      vars:
+        java_packages:
+          - java-1.8.0-openjdk

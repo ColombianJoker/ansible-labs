@@ -1,0 +1,14 @@
+---
+- name: CustomModule
+  hosts: all
+  gather_facts: true
+
+  tasks:
+    - name: Executes custom module
+      hello:
+        name: "Alexandra"
+      register: demo_greeting
+
+    - name: dump_output
+      ansible.builtin.debug:
+        msg: "{{ demo_greeting }}\n"
