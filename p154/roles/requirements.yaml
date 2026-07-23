@@ -1,0 +1,3 @@
+---
+- name: printfile
+  src: file:///Users/e/Documents/Code/Ansible/RHCE/ansible-labs/p154/printfile.tar.gz

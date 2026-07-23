@@ -1,0 +1,9 @@
+---
+- name: use role
+  become: true
+  hosts: all
+
+  tasks:
+    - name: Print Hosts
+      ansible.builtin.include_role:
+        name: printfile
