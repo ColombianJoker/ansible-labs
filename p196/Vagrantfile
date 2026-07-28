@@ -1,0 +1,44 @@
+require 'fileutils'
+
+Vagrant.configure("2") do |config|
+
+  ["staging", "prod"].each do |name|
+    config.vm.define name do |node|
+      node.vm.box = "bento/almalinux-9"
+      node.vm.box_version = "202511.24.0"
+      node.ssh.password = "vagrant"
+      node.vm.network "public_network", use_dhcp_assigned_default_route: true
+      node.ssh.forward_agent = true
+
+      # Absolute path to the secondary disk
+      disk_path = File.expand_path(".vagrant/machines/#{name}/vmware_desktop/#{name}_disk2.vmdk")
+
+      node.vm.provider "vmware_desktop" do |vmw|
+        vmw.memory = "2048"
+        vmw.vmx["ethernet0.pcislotnumber"] = "160"
+
+        # Attach second NVMe drive using the absolute path
+        vmw.vmx["nvme0:1.present"] = "TRUE"
+        vmw.vmx["nvme0:1.fileName"] = disk_path
+      end
+
+      # Create disk at the absolute path before booting
+      node.trigger.before :up do |trigger|
+        trigger.name = "Creating 30GB disk for #{name}"
+        trigger.ruby do |env, machine|
+          disk_dir = File.dirname(disk_path)
+
+          unless File.exist?(disk_path)
+            puts "Creating 30GB virtual disk at #{disk_path}..."
+            FileUtils.mkdir_p(disk_dir)
+            vdiskmanager = "/Applications/VMware Fusion.app/Contents/Library/vmware-vdiskmanager"
+            system("\"#{vdiskmanager}\" -c -s 30GB -a lsilogic -t 0 \"#{disk_path}\"")
+          end
+        end
+      end
+
+      node.vm.provision "shell", inline: "ip -4 -o a"
+    end
+  end
+
+end

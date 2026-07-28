@@ -1,0 +1,17 @@
+---
+- name: SSH Auth Tries
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Replace MaxAuthTries
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "^ *# *MaxAuthTries"
+        line: "MaxAuthTries 3"
+      notify: Restart sshd
+  handlers:
+    - name: Restart sshd
+      ansible.builtin.service:
+        name: sshd
+        state: restarted
