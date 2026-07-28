@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<Foundry>
+<VM>
+<ClientMetaData>
+<clientMetaDataAttributes/>
+<HistoryEventList/></ClientMetaData>
+<VMId type="string">52 ce 6d 37 a3 b1 c8 72-ab fe f1 5c e2 bb 77 82</VMId>
+<vmxPathName type="string">almalinux-9.7-aarch64.vmx</vmxPathName></VM></Foundry>

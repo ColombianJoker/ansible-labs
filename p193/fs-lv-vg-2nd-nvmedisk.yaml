@@ -1,0 +1,40 @@
+---
+- name: LVM on 2 GB partition on secondary disk
+  hosts: all
+  become: true
+
+  tasks:
+    - name: partition on secondary disk
+      community.general.parted:
+        device: "{{ sec_disk }}"
+        number: 1
+        flags: [lvm]
+        state: present
+        part_end: 2.1GB
+    - name: LVM volume group
+      community.general.lvg:
+        vg: secondary-vg
+        pvs: "{{ sec_disk }}p1"
+        pesize: 16M
+    - name: LVM logical volume
+      community.general.lvol:
+        vg: secondary-vg
+        lv: secondary-lv
+        size: 100%FREE
+        force: yes
+    - name: Format as a XFS filesystem
+      community.general.filesystem:
+        fstype: xfs
+        dev: /dev/secondary-vg/secondary-lv
+    - name: Define and mount the XFS filesystem
+      ansible.posix.mount:
+        path: /sec-data
+        src: /dev/secondary-vg/secondary-lv
+        fstype: xfs
+        state: mounted
+    - name: Get space
+      ansible.builtin.command: "df -h /sec-data"
+      register: output
+    - name: Display
+      ansible.builtin.debug:
+        msg: "Output {{output}}"

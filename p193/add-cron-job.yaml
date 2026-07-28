@@ -1,0 +1,11 @@
+---
+- name: Add cron job
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Create a cron job
+      ansible.builtin.cron:
+        name: list_files
+        minute: "*/2"
+        job: "ls > /dev/null"

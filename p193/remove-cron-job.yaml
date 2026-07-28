@@ -1,0 +1,10 @@
+---
+- name: Remove cron job
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Remove a cron job
+      ansible.builtin.cron:
+        name: list_files
+        state: absent
