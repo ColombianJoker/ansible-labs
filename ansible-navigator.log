@@ -1,0 +1,21 @@
+2026-07-27T22:42:03.986844+00:00 ERROR 'ansible_navigator.actions.collections._run_runner' [WARNING]: Building documentation, failed to assign id for Tuple(elts=[Name(id='ipc_watcher', ctx=Store()), Name(id='ipc_notifier', ctx=Store())], ctx=Store()) on /usr/local/lib/python3.14/site-packages/ansible/modules/async_wrapper.py, skipping
+Traceback (most recent call last):
+  File [35m"/Users/e/.cache/ansible-navigator/catalog_collections.py"[0m, line [35m694[0m, in [35m<module>[0m
+    result = main()
+  File [35m"/Users/e/.cache/ansible-navigator/catalog_collections.py"[0m, line [35m662[0m, in [35mmain[0m
+    [31mretrieve_docs[0m[1;31m(collection_cache, errors, missing, stats)[0m
+    [31m~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"/Users/e/.cache/ansible-navigator/catalog_collections.py"[0m, line [35m575[0m, in [35mretrieve_docs[0m
+    [31mcollection_cache[0m[1;31m[checksum][0m = plugin
+    [31m~~~~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^[0m
+  File [35m"/usr/local/lib/python3.14/site-packages/ansible_navigator/utils/key_value_store.py"[0m, line [35m183[0m, in [35m__setitem__[0m
+    [31mcursor.execute[0m[1;31m("REPLACE INTO kv (key, value) VALUES (?,?)", (key, value))[0m
+    [31m~~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[1;35msqlite3.OperationalError[0m: [35mattempt to write a readonly database[0m
+
+2026-07-27T22:42:21.874148+00:00 ERROR 'ansible_navigator.actions.collections._parse' Unable to extract collection json from stdout
+Traceback (most recent call last):
+  File "/Users/e/Library/Python/3.11/lib/python/site-packages/ansible_navigator/actions/collections.py", line 547, in _parse
+    _warnings, json_str = output.split("{", 1)
+    ^^^^^^^^^^^^^^^^^^^
+ValueError: not enough values to unpack (expected 2, got 1)
